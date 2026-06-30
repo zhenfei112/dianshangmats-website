@@ -1,0 +1,16 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="360" fill="#F8F5F0"/>
+  <g transform="translate(88 68)">
+    <rect width="224" height="224" rx="48" fill="#2A2019"/>
+    <rect x="52" y="48" width="132" height="132" rx="24" fill="#C58A57"/>
+    <rect x="40" y="64" width="132" height="132" rx="24" fill="#E0B383"/>
+    <path d="M82 91H126C164 91 189 114 189 144C189 175 164 198 126 198H82V91ZM113 119V170H126C145 170 158 160 158 144C158 129 145 119 126 119H113Z" fill="#2A2019"/>
+    <path d="M64 82H149" stroke="#F7F2EA" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+    <path d="M64 180H149" stroke="#8A5F3C" stroke-width="8" stroke-linecap="round" opacity="0.45"/>
+  </g>
+  <g transform="translate(352 102)">
+    <text x="0" y="62" font-family="Inter, Arial, Helvetica, sans-serif" font-size="58" font-weight="760" letter-spacing="-1.2" fill="#241B16">DianShang Mats</text>
+    <text x="2" y="116" font-family="Inter, Arial, Helvetica, sans-serif" font-size="24" font-weight="600" letter-spacing="1.7" fill="#8B6548">CUSTOM LEATHER MATS FOR BULK ORDERS</text>
+    <rect x="2" y="144" width="624" height="4" rx="2" fill="#C58A57"/>
+  </g>
+</svg>

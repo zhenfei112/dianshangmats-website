@@ -1,0 +1,350 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum SalesMode {
+  DIRECT_PURCHASE
+  QUOTE_ONLY
+  BOTH
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  HIDDEN
+  ARCHIVED
+}
+
+enum OrderStatus {
+  PENDING
+  AWAITING_PAYMENT
+  AWAITING_SHIPPING_QUOTE
+  PAID
+  PROCESSING
+  SAMPLE_PRODUCTION
+  MASS_PRODUCTION
+  SHIPPED
+  COMPLETED
+  CANCELLED
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  SAMPLE_PROCESSING
+  PRODUCTION
+  COMPLETED
+  CLOSED
+}
+
+enum PaymentMethod {
+  PAYPAL
+  CREDIT_CARD
+  BANK_TRANSFER
+}
+
+enum AdminRole {
+  OWNER
+  MANAGER
+  STAFF
+}
+
+model AdminUser {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  name         String
+  passwordHash String
+  role         AdminRole      @default(STAFF)
+  active       Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  logs         OperationLog[]
+}
+
+model Customer {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  name        String?
+  companyName String?
+  phone       String?
+  country     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  orders      Order[]
+  inquiries   Inquiry[]
+}
+
+model Category {
+  id              String     @id @default(cuid())
+  name            String
+  slug            String     @unique
+  description     String?    @db.Text
+  imageUrl        String?
+  parentId        String?
+  visible         Boolean    @default(true)
+  sortOrder       Int        @default(0)
+  seoTitle        String?
+  metaDescription String?    @db.Text
+  contentSource   String     @default("manual")
+  needsReview     Boolean    @default(false)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  parent          Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children        Category[] @relation("CategoryTree")
+  products        Product[]
+}
+
+model Product {
+  id                    String           @id @default(cuid())
+  name                  String
+  slug                  String           @unique
+  modelNumber           String?
+  categoryId            String
+  summary               String?          @db.Text
+  description           String?          @db.Text
+  material              String?
+  surfaceMaterial       String?
+  baseMaterial          String?
+  surfaceTexture        String?
+  shape                 String?
+  color                 String?
+  size                  String?
+  customSize            Boolean          @default(false)
+  thickness             String?
+  printingMethod        String?
+  logoMethod            String?
+  edgeFinish            String?
+  packaging             String?
+  moq                   String?
+  samplePrice           Decimal?         @db.Decimal(10, 2)
+  productionTime        String?
+  salesMode             SalesMode        @default(QUOTE_ONLY)
+  status                ProductStatus    @default(DRAFT)
+  seoTitle              String?
+  metaDescription       String?          @db.Text
+  imageAltText          String?
+  contentSource         String           @default("manual")
+  needsReview           Boolean          @default(false)
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  category              Category         @relation(fields: [categoryId], references: [id])
+  images                ProductImage[]
+  variants              ProductVariant[]
+  tieredPrices          TieredPrice[]
+  inquiries             Inquiry[]
+  orderItems            OrderItem[]
+}
+
+model ProductVariant {
+  id         String              @id @default(cuid())
+  productId  String
+  sku        String              @unique
+  name       String?
+  color      String?
+  size       String?
+  price      Decimal?            @db.Decimal(10, 2)
+  inventory  Int                 @default(0)
+  active     Boolean             @default(true)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+  product    Product             @relation(fields: [productId], references: [id])
+  movements  InventoryMovement[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  role      String   @default("gallery")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model TieredPrice {
+  id        String  @id @default(cuid())
+  productId String
+  minQty    Int
+  maxQty    Int?
+  price     Decimal @db.Decimal(10, 2)
+  label     String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model InventoryMovement {
+  id        String         @id @default(cuid())
+  variantId String
+  change    Int
+  reason    String
+  note      String?        @db.Text
+  createdAt DateTime       @default(now())
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+}
+
+model Cart {
+  id         String     @id @default(cuid())
+  customerId String?
+  sessionId  String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  items      CartItem[]
+}
+
+model CartItem {
+  id        String         @id @default(cuid())
+  cartId    String
+  variantId String
+  quantity  Int
+  cart      Cart           @relation(fields: [cartId], references: [id])
+  variant   ProductVariant @relation(fields: [variantId], references: [id])
+}
+
+model Order {
+  id             String         @id @default(cuid())
+  orderNumber    String         @unique
+  customerId     String?
+  status         OrderStatus    @default(PENDING)
+  paymentMethod  PaymentMethod?
+  subtotal       Decimal        @default(0) @db.Decimal(10, 2)
+  shippingAmount Decimal?       @db.Decimal(10, 2)
+  total          Decimal        @default(0) @db.Decimal(10, 2)
+  currency       String         @default("USD")
+  shippingNote   String?        @db.Text
+  customerName   String
+  customerEmail  String
+  companyName    String?
+  phone          String?
+  country        String?
+  addressLine1   String?
+  addressLine2   String?
+  city           String?
+  state          String?
+  postalCode     String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  customer       Customer?      @relation(fields: [customerId], references: [id])
+  items          OrderItem[]
+  payments       Payment[]
+}
+
+model OrderItem {
+  id        String          @id @default(cuid())
+  orderId   String
+  productId String
+  variantId String?
+  name      String
+  sku       String?
+  quantity  Int
+  unitPrice Decimal         @db.Decimal(10, 2)
+  total     Decimal         @db.Decimal(10, 2)
+  order     Order           @relation(fields: [orderId], references: [id])
+  product   Product         @relation(fields: [productId], references: [id])
+  variant   ProductVariant? @relation(fields: [variantId], references: [id])
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  orderId     String
+  method      PaymentMethod
+  providerRef String?
+  status      String
+  amount      Decimal       @db.Decimal(10, 2)
+  currency    String        @default("USD")
+  createdAt   DateTime      @default(now())
+  order       Order         @relation(fields: [orderId], references: [id])
+}
+
+model Inquiry {
+  id                    String        @id @default(cuid())
+  customerId            String?
+  productId             String?
+  status                InquiryStatus @default(NEW)
+  name                  String
+  companyName           String?
+  businessEmail         String
+  phoneOrWhatsapp       String?
+  countryOrRegion       String?
+  estimatedQuantity     String?
+  requiredShape         String?
+  requiredSize          String?
+  requiredThickness     String?
+  material              String?
+  surfaceTexture        String?
+  logoRequirements      String?       @db.Text
+  printingRequirements  String?       @db.Text
+  packagingRequirements String?       @db.Text
+  targetMarket          String?
+  expectedDeliveryDate  String?
+  detailedRequirements  String?       @db.Text
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  customer              Customer?     @relation(fields: [customerId], references: [id])
+  product               Product?      @relation(fields: [productId], references: [id])
+  files                 InquiryFile[]
+}
+
+model InquiryFile {
+  id        String   @id @default(cuid())
+  inquiryId String
+  url       String
+  fileName  String
+  fileType  String?
+  size      Int?
+  createdAt DateTime @default(now())
+  inquiry   Inquiry  @relation(fields: [inquiryId], references: [id])
+}
+
+model Article {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String?  @db.Text
+  body            String   @db.Text
+  imageUrl        String?
+  category        String?
+  published       Boolean  @default(false)
+  seoTitle        String?
+  metaDescription String?  @db.Text
+  contentSource   String   @default("manual")
+  needsReview     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  category  String?
+  visible   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model OperationLog {
+  id        String     @id @default(cuid())
+  adminId   String?
+  action    String
+  entity    String?
+  entityId  String?
+  detail    Json?
+  createdAt DateTime   @default(now())
+  admin     AdminUser? @relation(fields: [adminId], references: [id])
+}

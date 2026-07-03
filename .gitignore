@@ -1,6 +1,11 @@
 node_modules
 dist
+.next
+.playwright-cli
 .env
+.env.*
 .env.local
+*.tsbuildinfo
+dev-server*.log
 npm-debug.log*
 .DS_Store

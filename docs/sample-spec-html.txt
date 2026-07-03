@@ -1,0 +1,127 @@
+﻿html-tabs__nav-link nav-link" id="unit-wByF4JcwoB-commentheader-tab" data-toggle="tab" href="javascript:;" role="tab" aria-controls="unit-wByF4JcwoB-commentheader" aria-selected="true">
+        Customer Reviews
+          <span class="comment-quantity"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="unit-detail-html-tabs__content tab-content" text-style="3">
+    <div class="tab-pane fade show active" id="unit-wByF4JcwoB-20006" role="tabpanel" aria-labelledby="unit-wByF4JcwoB-20006-tab">
+        <div class="unit-detail-html-tabs__content-attr">
+        </div>
+        <div class="unit-detail-html-tabs__content-featuresAttr">
+        </div>
+      <div class="unit-detail-html-tabs__content-html">
+          <div cloud-editor="module" id="module-k9K2Q7klP3LPI" data-name="äº§åä¼å¿1" class="" tag="">
+  <style module="k9K2Q7klP3LPI">#module-k9K2Q7klP3LPI{text-align:center;padding-top:4vw;padding-bottom:4vw;background-color:rgba(245, 245, 245, 1);}@media(max-width:1199px){#module-k9K2Q7klP3LPI{padding-top:6vw;padding-bottom:6vw;}}@media(max-width:767px){#module-k9K2Q7klP3LPI{padding-top:10vw;padding-bottom:10vw;}}</style>
+  <div cloud-editor="grid" class="ce-d-flex ce-flex-wrap container" id="grid-3WOLQhTc2GflEl2">
+    <style grid="3WOLQhTc2GflEl2">#grid-3WOLQhTc2GflEl2{padding-right:15px;padding-left:15px;}</style>
+    <div cloud-editor="cell" class="ce-col-12 ce-col-md-12 ce-col-xl-12" id="cell-wSTeYk5Ruf0eNFG"><style cell="wSTeYk5Ruf0eNFG">#cell-wSTeYk5Ruf0eNFG{padding-left:6vw;padding-right:6vw;order:0;}@media(max-width:1199px){#cell-wSTeYk5Ruf0eNFG{padding-left:0vw;padding-right:0vw;}}</style>
+      <div cloud-editor="unit" type="text" id="unit-04q4RVHcNAxYyCj"><style unit="04q4RVHcNAxYyCj">#unit-04q4RVHcNAxYyCj [ce-data-type="text"]{color:rgba(34, 34, 34, 1);}#unit-04q4RVHcNAxYyCj{padding-bottom:1.5vw;}</style>
+      <div ce-data-type="text" text-style="1" class="ce-text_item">
+        <div class="ce-text" cetiymce="" style="position: relative;"><p>Product technical specifications</p></div>
+      </div></div><div cloud-editor="unit" type="editor" data-name="ç¼è¾å¨1" id="unit-qkhV2iPgrAauVzZ">
+  <div ce-data-type="editor" class="ce-editor_item"><div class="ce-editor" cefullmce=""><div class="table-responsive">
+<table class="table table-bordered table-hover" style="width: 100%; height: 413.39px;">
+<tbody>
+<tr style="height: 22.3906px;">
+<td style="width: 100%; background-color: #e3e3e3; height: 22.3906px;" colspan="2" width="526"><strong>Basic Information</strong></td>
+</tr>
+<tr style="height: 32.75px;">
+<td style="height: 32.75px; width: 39.1304%;" width="203">Product Name</td>
+<td style="height: 32.75px; width: 60.8696%;" width="323">Office &amp; Esports High-End <a style="color:#4d7cfe; display:inline;" href="/desk-mat.html">Desk Mat</a></td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 39.1304%; height: 22.3906px;">Model Number</td>
+<td style="width: 60.8696%; height: 22.3906px;">KLP-002</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 39.1304%; height: 22.3906px;">Product Type</td>
+<td style="width: 60.8696%; height: 22.3906px;">Gel Wrist Support</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 39.1304%; height: 22.3906px;">Wrist Rest Thickness</td>
+<td style="width: 60.8696%; height: 22.3906px;">20 mm gel cushion</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 39.1304%; height: 22.3906px;">Usage</td>
+<td style="width: 60.8696%; height: 22.3906px;">Office</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 39.1304%; height: 22.3906px;">Status</td>
+<td style="width: 60.8696%; height: 22.3906px;">Stock</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 100%; background-color: #e3e3e3; height: 22.3906px;" colspan="2" width="526"><strong>Physical Specifications</strong></td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="height: 22.3906px; width: 39.1304%;" width="203">Dimensions (LxWxH)</td>
+<td style="height: 22.3906px; width: 60.8696%;" width="323">800*300mm</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="height: 22.3906px; width: 39.1304%;">Logo</td>
+<td style="height: 22.3906px; width: 60.8696%;">silk printing /sublimation&nbsp;</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="height: 22.3906px; width: 39.1304%;">Edge</td>
+<td style="height: 22.3906px; width: 60.8696%;">Anti-Fray, edges and the mat body are seamlessly fused</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 100%; background-color: #e3e3e3; height: 22.3906px;" colspan="2" width="526"><strong>Materials</strong></td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="height: 22.3906px; width: 39.1304%;" width="203">Surface Material</td>
+<td style="height: 22.3906px; width: 60.8696%;" width="323">smooth cloth surface</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="height: 22.3906px; width: 39.1304%;" width="203">Base Material</td>
+<td style="height: 22.3906px; width: 60.8696%;" width="323">Anti-Slip Rubber Base</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 100%; background-color: #e3e3e3; height: 22.3906px;" colspan="2" width="526"><strong>Certifications</strong></td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="height: 22.3906px; width: 39.1304%;" width="203">Safety Standards</td>
+<td style="height: 22.3906px; width: 60.8696%;" width="323">RoHS, REACH, Prop 65 compliant</td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 100%; background-color: #e3e3e3; height: 22.3906px;" colspan="2" width="526"><strong>Package Contents</strong></td>
+</tr>
+<tr style="height: 22.3906px;">
+<td style="width: 39.1304%; height: 22.3906px;">Packing</td>
+<td style="width: 60.8696%; height: 22.3906px;">OPP Packing /Blister Packing / Box Packing&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div></div></div>
+</div>
+    </div>  
+  </div>
+</div><div cloud-editor="module" id="module-AhCYrwKzOCbqv" data-name="äº§åä¼å¿1" class="" tag="">
+  <style module="AhCYrwKzOCbqv">#module-AhCYrwKzOCbqv{text-align:center;padding-top:4vw;padding-bottom:4vw;background-color:unset;}@media(max-width:1199px){#module-AhCYrwKzOCbqv{background-color:rgba(245, 245, 245, 1);}}</style>
+  <div cloud-editor="grid" class="ce-d-flex ce-flex-wrap container" id="grid-8Ruslx6J3bU2ZfH">
+    <style grid="8Ruslx6J3bU2ZfH">
+      #grid-8Ruslx6J3bU2ZfH{padding-right:var(--default-paddingRight);padding-left:var(--default-paddingLeft);}
+    </style>
+    <div cloud-editor="cell" class="ce-col-12" id="cell-NRSPBIEty6lTZ4s">
+      <div cloud-editor="unit" type="text" id="unit-NiKcrinaHwgk3pe"><style unit="NiKcrinaHwgk3pe">#unit-NiKcrinaHwgk3pe [ce-data-type="text"]{color:rgba(34, 34, 34, 1);}</style>
+      <div ce-data-type="text" text-style="1" class="ce-text_item">
+        <div class="ce-text" cetiymce="" style="position: relative;"><p>Product Features</p></div>
+      </div></div><div cloud-editor="unit" type="text" class="ce-color-dark" id="unit-Z4gUh9rATvizN3q" data-name="ææ¬2">
+  <div ce-data-type="text" text-style="3" class="ce-text_item">
+    <div class="ce-text" cetiymce="" style="position: relative;"><p>Mondrian color block large gaming desk pad, 900x300mm smooth cloth anti-slip rubber base office mouse mat</p><p>Abstract geometric modular color block extended keyboard pad, durable stitched edge dual use desk mat</p></div>
+  </div>
+</div>
+    </div>  
+    <div cloud-editor="cell" class="ce-col-12" id="cell-PGRx9KSRLBPSffP">
+      <div cloud-editor="unit" type="list" id="unit-0U8K2pmMQUzqJUq">
+        <style unit="0U8K2pmMQUzqJUq">#unit-0U8K2pmMQUzqJUq{padding-top:3vw;}#unit-0U8K2pmMQUzqJUq [ce-data-type="inner"]{flex-direction:column;background-color:unset;}#unit-0U8K2pmMQUzqJUq .ce-image_inner{justify-content:center;}#unit-0U8K2pmMQUzqJUq .ce-list_items{margin:-0.8vw;}#unit-0U8K2pmMQUzqJUq .ce-image_item{--svg-color:rgba(255, 241, 0,1);--image-scale:0.56;padding-top:56%;}#unit-0U8K2pmMQUzqJUq .ce-image{height:100%;width:100%;--image-effect:2;}#unit-0U8K2pmMQUzqJUq [ce-data-type="summary"]{text-align:left;display:none;color:rgba(80, 80, 80, 1);}#unit-0U8K2pmMQUzqJUq [ce-data-type="subtitle"]{display:none;}@media(max-width:1199px){#unit-0U8K2pmMQUzqJUq .ce-list_items{margin:-1.5vw;margin-top:-15;margin-bottom:-15;}#unit-0U8K2pmMQUzqJUq .ce-image_item{padding-top:75%;}}@media(max-width:767px){#unit-0U8K2pmMQUzqJUq{padding-top:5vw;}}</style>
+      <div class="ce-list_container"><div class="ce-list_items ce-flex-wrap"><div ce-data-type="item" class="ce-col-w-1 ce-col-w-md-2 ce-col-w-xl-3 ce-list_item ">
+          <div ce-data-type="inner" class="ce-list_item-inner ce-d-flex">
+            <div ce-data-type="image" class="ce-list_image">
+              <div class="ce-image_item base-image--scale">
+                <div class="ce-image_inner base-image__item"><img class="ce-image " lazy-src="//img.yfisher.com/m0/1782801561792-1.jpg" alt="ç»æ¿ 1 (335)"></div>
+              </div>
+          </div>
+            <div class="ce-list_text">
+              <div ce-data-type="title" text-style="3" clas

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { categories, company, products } from "@/lib/site-data";
+import { sendInquiry } from "@/lib/inquiry-client";
 
 const initialState = {
   name: "",
@@ -27,20 +28,23 @@ const initialState = {
 export function InquiryForm({ compact = false }: { compact?: boolean }) {
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [reference, setReference] = useState("");
 
   async function submitInquiry(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setStatus("sending");
+    setErrorMessage("");
     try {
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
-      if (!response.ok) throw new Error("Inquiry failed");
+      const files = formElement.querySelector<HTMLInputElement>('input[type="file"]')?.files;
+      const result = await sendInquiry(form, files || undefined);
+      setReference(result.id);
       setStatus("sent");
       setForm(initialState);
-    } catch {
+      formElement.reset();
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Delivery was not confirmed. Please email sales@dianshangmats.com.");
       setStatus("error");
     }
   }
@@ -222,7 +226,8 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
 
       <label className="mt-4 grid rounded-2xl border border-dashed border-[#c7ad98] bg-ivory p-5 text-center text-sm font-bold text-slate-600">
         Upload Logo / Design File
-        <input type="file" multiple className="mt-3 text-sm" />
+        <input type="file" multiple accept=".jpg,.jpeg,.png,.pdf,.ai" className="mt-3 text-sm" />
+        <span className="mt-2">Up to 3 files, 2 MB total.</span>
       </label>
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -232,8 +237,8 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
         <a className="btn-secondary" href={`mailto:${company.email}`}>
           Email Supplier
         </a>
-        {status === "sent" ? <span className="font-bold text-leather-800">Inquiry received in test mode.</span> : null}
-        {status === "error" ? <span className="font-bold text-red-700">Could not submit. Please try email.</span> : null}
+        {status === "sent" ? <span role="status" className="font-bold text-leather-800">Inquiry saved and email notification accepted. Reference: {reference}</span> : null}
+        {status === "error" ? <span role="alert" className="font-bold text-red-700">{errorMessage}</span> : null}
       </div>
     </form>
   );

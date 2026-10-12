@@ -1,68 +1,38 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
+import { deliverInquiry, errorResponse } from "@/inquiry-delivery.mjs";
 
-const inquirySchema = z.object({
-  name: z.string().min(1),
-  companyName: z.string().optional(),
-  businessEmail: z.string().email(),
-  phoneOrWhatsapp: z.string().optional(),
-  countryOrRegion: z.string().optional(),
-  product: z.string().optional(),
-  estimatedQuantity: z.string().optional(),
-  requiredShape: z.string().optional(),
-  requiredSize: z.string().optional(),
-  requiredThickness: z.string().optional(),
-  material: z.string().optional(),
-  surfaceTexture: z.string().optional(),
-  logoRequirements: z.string().optional(),
-  printingRequirements: z.string().optional(),
-  packagingRequirements: z.string().optional(),
-  targetMarket: z.string().optional(),
-  expectedDeliveryDate: z.string().optional(),
-  detailedRequirements: z.string().optional()
-});
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const parsed = inquirySchema.safeParse(body);
-
-  if (!parsed.success) {
-    return NextResponse.json({ ok: false, error: parsed.error.flatten() }, { status: 400 });
+  const origin = request.headers.get("origin");
+  if (origin && !["https://dianshangmats.com", "https://www.dianshangmats.com"].includes(origin) &&
+      process.env.NODE_ENV === "production") {
+    return NextResponse.json({ ok: false, error: "Please use the website inquiry form." }, { status: 403 });
   }
-
-  if (!process.env.DATABASE_URL) {
-    return NextResponse.json(
-      {
-        ok: true,
-        mode: "demo",
-        message: "Inquiry accepted in local demo mode. Configure DATABASE_URL to persist submissions."
-      },
-      { status: 202 }
-    );
-  }
-
-  const { prisma } = await import("@/lib/prisma");
-  const inquiry = await prisma.inquiry.create({
-    data: {
-      name: parsed.data.name,
-      companyName: parsed.data.companyName,
-      businessEmail: parsed.data.businessEmail,
-      phoneOrWhatsapp: parsed.data.phoneOrWhatsapp,
-      countryOrRegion: parsed.data.countryOrRegion,
-      estimatedQuantity: parsed.data.estimatedQuantity,
-      requiredShape: parsed.data.requiredShape,
-      requiredSize: parsed.data.requiredSize,
-      requiredThickness: parsed.data.requiredThickness,
-      material: parsed.data.material,
-      surfaceTexture: parsed.data.surfaceTexture,
-      logoRequirements: parsed.data.logoRequirements,
-      printingRequirements: parsed.data.printingRequirements,
-      packagingRequirements: parsed.data.packagingRequirements,
-      targetMarket: parsed.data.targetMarket,
-      expectedDeliveryDate: parsed.data.expectedDeliveryDate,
-      detailedRequirements: parsed.data.detailedRequirements
+  try {
+    if (Number(request.headers.get("content-length")) > 3 * 1024 * 1024) {
+      return NextResponse.json({ ok: false, error: "Attachments must total 2 MB or less." }, { status: 413 });
     }
-  });
-
-  return NextResponse.json({ ok: true, id: inquiry.id });
+    const reader = request.body?.getReader();
+    if (!reader) return NextResponse.json({ ok: false, error: "Empty inquiry." }, { status: 400 });
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > 3 * 1024 * 1024) {
+        await reader.cancel();
+        return NextResponse.json({ ok: false, error: "Attachments must total 2 MB or less." }, { status: 413 });
+      }
+      chunks.push(value);
+    }
+    let body;
+    try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); }
+    catch { return NextResponse.json({ ok: false, error: "Invalid inquiry." }, { status: 400 }); }
+    return NextResponse.json(await deliverInquiry("dianshangmats", body));
+  } catch (error) {
+    const result = errorResponse(error);
+    return NextResponse.json(result.body, { status: result.status });
+  }
 }

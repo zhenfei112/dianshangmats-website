@@ -34,7 +34,13 @@ export default function ContactPage() {
                   {icon}
                 </div>
                 <h2 className="mt-10 text-xl font-black text-navy-950">{title}</h2>
-                <p className="mt-5 text-base leading-7 text-slate-600">{value}</p>
+                <p className="mt-5 text-base leading-7 text-slate-600">
+                  {title === "E-Mail" ? (
+                    <a href={`mailto:${company.email}`} className="break-all hover:underline">
+                      {company.email}
+                    </a>
+                  ) : value}
+                </p>
               </div>
             ))}
           </div>

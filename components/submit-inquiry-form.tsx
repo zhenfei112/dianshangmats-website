@@ -2,24 +2,25 @@
 
 import { useState } from "react";
 import { useCart } from "@/components/cart-provider";
+import { sendInquiry } from "@/lib/inquiry-client";
 
 export function SubmitInquiryForm() {
   const { items, clearCart } = useCart();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [reference, setReference] = useState("");
 
   async function submitInquiry(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     setStatus("sending");
+    setErrorMessage("");
 
     try {
       const inquiryLines = items
         .map((item) => `${item.name} (${item.modelNumber}) x ${item.quantity}`)
         .join("\n");
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const result = await sendInquiry({
           name: formData.get("customerName"),
           businessEmail: formData.get("customerEmail"),
           companyName: formData.get("companyName"),
@@ -36,12 +37,12 @@ export function SubmitInquiryForm() {
             "",
             `Additional requirements: ${formData.get("requirements") || ""}`
           ].join("\n")
-        })
       });
-      if (!response.ok) throw new Error("Inquiry failed");
+      setReference(result.id);
       setStatus("sent");
       clearCart();
-    } catch {
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Delivery was not confirmed. Please email sales@dianshangmats.com.");
       setStatus("error");
     }
   }
@@ -111,8 +112,8 @@ export function SubmitInquiryForm() {
         <button className="btn-primary mt-6 w-full" disabled={!items.length || status === "sending"}>
           {status === "sending" ? "Sending Inquiry..." : "Submit Inquiry"}
         </button>
-        {status === "sent" ? <p className="mt-4 font-bold text-leather-800">Inquiry received. The inquiry basket has been cleared.</p> : null}
-        {status === "error" ? <p className="mt-4 font-bold text-red-700">Could not submit inquiry.</p> : null}
+        {status === "sent" ? <p role="status" className="mt-4 font-bold text-leather-800">Inquiry saved and email notification accepted. Reference: {reference}. The inquiry basket has been cleared.</p> : null}
+        {status === "error" ? <p role="alert" className="mt-4 font-bold text-red-700">{errorMessage}</p> : null}
       </aside>
     </form>
   );

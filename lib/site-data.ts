@@ -69,7 +69,7 @@ export const company = {
   brand: "DIANSHANGMATS",
   legalName: "Guangzhou DIANSHANG Rubber Products Co., Ltd.",
   location: "Guangzhou, Guangdong, China",
-  email: "info@dianshangmats.com",
+  email: "sales@dianshangmats.com",
   headline: "Custom Mats, Mouse Pads and Desk Accessories Manufacturer",
   subheadline:
     "One-Stop OEM and ODM Solutions for Mouse Pads, Desk Mats, Placemats, Coasters, Wrist Rests and Custom Game Mats."

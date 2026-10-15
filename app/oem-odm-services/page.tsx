@@ -13,7 +13,7 @@ export default function OemPage() {
     <>
       <section className="bg-ivory py-20">
         <div className="container-shell grid items-center gap-10 lg:grid-cols-[1fr_480px]">
-          <SectionHeading eyebrow="OEM/ODM Services" title="From product recommendation to sample approval and mass production.">
+          <SectionHeading as="h1" eyebrow="OEM/ODM Services" title="OEM & ODM Services for Custom Mats">
             We support private-label buyers, distributors, promotional companies, hospitality groups, and office supply
             programs with structured OEM/ODM development.
           </SectionHeading>

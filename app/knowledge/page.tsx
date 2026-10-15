@@ -12,7 +12,7 @@ export default function KnowledgePage() {
   return (
     <section className="section-pad">
       <div className="container-shell">
-        <SectionHeading eyebrow="Knowledge" title="Manufacturing and sourcing guides." />
+        <SectionHeading as="h1" eyebrow="Knowledge" title="Custom Mats Buyer Guides & Manufacturing Notes" />
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {articles.map((article) => (
             <Link href={`/knowledge/${article.slug}`} key={article.slug} className="rounded-3xl border border-[#eadccd] bg-white p-4">

@@ -18,7 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const product = getProduct(slug);
   return {
     title: product?.name || "Product Detail",
-    description: product?.summary
+    description: product?.summary,
+    alternates: { canonical: `/products/${slug}` },
+    openGraph: { title: `${product?.name || "Product Detail"} | DIANSHANGMATS`, description: product?.summary, url: `/products/${slug}`, type: "website", images: product ? [product.image] : [] },
+    robots: product && product.status !== "ACTIVE" ? { index: false, follow: true } : undefined
   };
 }
 
@@ -46,6 +49,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://dianshangmats.com/" },
+          { "@type": "ListItem", position: 2, name: "Products", item: "https://dianshangmats.com/products" },
+          { "@type": "ListItem", position: 3, name: product.name, item: `https://dianshangmats.com/products/${slug}` }
+        ]
+      }).replace(/</g, "\\u003c") }} />
       <section className="bg-[#f1e8dc] py-6">
         <div className="container-shell text-sm font-semibold text-slate-600">
           <Link href="/" className="hover:text-[#5b2d14]">

@@ -16,7 +16,7 @@ export default function CasesPage() {
   return (
     <section className="section-pad">
       <div className="container-shell">
-        <SectionHeading eyebrow="Cases" title="Application examples for B2B buyers." />
+        <SectionHeading as="h1" eyebrow="Cases" title="Custom Mat Application Examples" />
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {cases.map(([title, image, copy]) => (
             <article key={title} className="rounded-3xl border border-[#eadccd] bg-white p-4">

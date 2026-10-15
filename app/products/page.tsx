@@ -5,10 +5,22 @@ import { ProductCard } from "@/components/product-card";
 import { SectionHeading } from "@/components/section-heading";
 import { categories, products } from "@/lib/site-data";
 
-export const metadata: Metadata = {
-  title: "Products Center",
-  description: "Browse DIANSHANGMATS custom mats, mouse pads, desk mats, placemats, coasters and game mats."
-};
+type CatalogQuery = { category?: string | string[]; subcategory?: string | string[]; page?: string | string[] };
+
+export async function generateMetadata({ searchParams }: { searchParams?: Promise<CatalogQuery> }): Promise<Metadata> {
+  const query = searchParams ? await searchParams : {};
+  const category = categories.find((item) => item.slug === firstParam(query.category));
+  const subcategory = firstParam(query.subcategory);
+  const count = products.filter((item) => item.status === "ACTIVE" && (!category || item.category === category.name) && (!subcategory || item.subcategory === subcategory)).length;
+  const page = Math.min(getPage(firstParam(query.page)), Math.max(1, Math.ceil(count / productsPerPage)));
+  const canonical = getProductPageUrl({ category: category?.slug, subcategory, page });
+  return {
+    title: `${subcategory || category?.name || "Custom Mats & Mouse Pads"}${page > 1 ? ` - Page ${page}` : ""}`,
+    description: "Browse custom mouse pads, desk mats, placemats, coasters and game mats. Compare materials and customization options for wholesale and OEM orders.",
+    alternates: { canonical },
+    openGraph: { title: `${subcategory || category?.name || "Custom Mats & Mouse Pads"} | DIANSHANGMATS`, url: canonical, type: "website" }
+  };
+}
 
 function firstParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
@@ -57,7 +69,7 @@ export default async function ProductsPage({
   const requestedSubcategoryPage = getPage(firstParam(params.subcatPage));
   const requestedProductPage = getPage(firstParam(params.page));
   const activeCategory = categories.find((category) => category.slug === categoryParam);
-  const activeSubcategory = subcategoryParam ? decodeURIComponent(subcategoryParam) : undefined;
+  const activeSubcategory = subcategoryParam || undefined;
   const activeProducts = products.filter((product) => product.status === "ACTIVE");
   const visibleProducts = activeProducts
     .filter((product) => {
@@ -82,6 +94,7 @@ export default async function ProductsPage({
         />
         <div>
           <SectionHeading
+            as="h1"
             eyebrow="Product Catalog"
             title={activeSubcategory || activeCategory?.name || "Factory-direct B2B product lines."}
           >

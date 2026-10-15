@@ -15,12 +15,18 @@ export function generateStaticParams() {
   return categories.map((category) => ({ slug: category.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<{ page?: string | string[] }> }): Promise<Metadata> {
   const { slug } = await params;
   const category = getCategory(slug);
+  const query = searchParams ? await searchParams : {};
+  const count = category ? getActiveProductsByCategory(slug).length : 0;
+  const page = Math.min(getPage(firstParam(query.page)), Math.max(1, Math.ceil(count / productsPerPage)));
+  const canonical = getCategoryPageUrl(slug, page);
   return {
-    title: category?.name || "Product Category",
-    description: category?.summary
+    title: `${category?.name || "Product Category"}${page > 1 ? ` - Page ${page}` : ""}`,
+    description: category?.summary,
+    alternates: { canonical },
+    openGraph: { title: `${category?.name || "Product Category"} | DIANSHANGMATS`, description: category?.summary, url: canonical, type: "website", images: category ? [category.image] : [] }
   };
 }
 
@@ -70,7 +76,7 @@ export default async function CategoryPage({
         <ProductCategorySidebar activeCategorySlug={category.slug} requestedSubcategoryPage={requestedSubcategoryPage} />
         <div>
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_360px]">
-            <SectionHeading eyebrow="Product Category" title={category.name}>
+            <SectionHeading as="h1" eyebrow="Product Category" title={category.name}>
               {category.summary}
             </SectionHeading>
             <div className="square-media rounded-3xl shadow-soft">

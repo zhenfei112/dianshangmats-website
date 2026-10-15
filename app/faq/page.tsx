@@ -11,7 +11,7 @@ export default function FaqPage() {
   return (
     <section className="section-pad">
       <div className="container-shell max-w-4xl">
-        <SectionHeading eyebrow="FAQ" title="Common buyer questions." />
+        <SectionHeading as="h1" eyebrow="FAQ" title="Custom Mats OEM & Wholesale FAQ" />
         <div className="mt-8 grid gap-4">
           {faqs.map((faq) => (
             <div key={faq.question} className="rounded-3xl border border-[#eadccd] bg-white p-6">

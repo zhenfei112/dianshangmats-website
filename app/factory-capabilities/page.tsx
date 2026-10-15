@@ -19,7 +19,7 @@ export default function FactoryCapabilitiesPage() {
   return (
     <section className="section-pad">
       <div className="container-shell">
-        <SectionHeading eyebrow="Factory Capabilities" title="Manufacturing modules prepared for B2B sourcing." />
+        <SectionHeading as="h1" eyebrow="Factory Capabilities" title="Custom Mat Manufacturing Capabilities" />
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {capabilities.map(([title, copy]) => (
             <div key={title} className="rounded-3xl border border-[#eadccd] bg-white p-6">

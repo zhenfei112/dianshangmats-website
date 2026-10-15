@@ -11,7 +11,7 @@ export default function QualityControlPage() {
   return (
     <section className="section-pad">
       <div className="container-shell grid gap-10 lg:grid-cols-[420px_1fr]">
-        <SectionHeading eyebrow="Quality Control" title="Inspection path for custom and stock orders.">
+        <SectionHeading as="h1" eyebrow="Quality Control" title="Quality Control for Custom Mat Orders">
           Confirm material, color, print, size tolerance, backing stability, edge finish and packaging before shipment.
         </SectionHeading>
         <div className="grid gap-4 md:grid-cols-2">

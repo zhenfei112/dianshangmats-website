@@ -953,7 +953,24 @@ const manualProducts: Product[] = [
   }
 ];
 
-export const products: Product[] = [...kalpadProducts, ...manualProducts];
+// Imported specifications for these desk mats conflict with wrist-rest fields.
+// Keep the original import intact until the supplier confirms the correct details.
+function reviewedImport(product: Product): Product {
+  const affected = ["office-esports-high-end-desk-mat", "large-dual-material-desk-mat-felt-cloth-surface-with-anti-slip-rubber-base"];
+  if (!affected.includes(product.slug)) return product;
+  const feltConflict = product.slug === affected[1];
+  return {
+    ...product,
+    surfaceTexture: "To be confirmed",
+    thickness: "To be confirmed",
+    ...(feltConflict ? { material: "To be confirmed", surfaceMaterial: "To be confirmed", baseMaterial: "To be confirmed" } : {}),
+    specs: product.specs?.filter(({ label }) =>
+      !["Product Type", "Wrist Rest Thickness", ...(feltConflict ? ["Surface Material", "Base Material"] : [])].includes(label)
+    )
+  };
+}
+
+export const products: Product[] = [...kalpadProducts.map(reviewedImport), ...manualProducts];
 
 export const articles: Article[] = [
   {

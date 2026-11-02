@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   // Next resolves ./ against each route, not against the home page.
   alternates: { canonical: "./" },
   title: {
-    default: `${company.brand} | Custom Mats and Mouse Pads Manufacturer`,
+    default: `Custom Desk Mat and Mouse Pad Manufacturer | ${company.brand}`,
     template: `%s | ${company.brand}`
   },
   description: "Custom mouse pads, desk mats, placemats and coasters for wholesale and OEM projects. Explore materials, logo printing, sizes and packaging with DIANSHANGMATS.",
   openGraph: {
-    title: `${company.brand} | Custom Mats and Mouse Pads Manufacturer`,
+    title: `Custom Desk Mat and Mouse Pad Manufacturer | ${company.brand}`,
     description: company.subheadline,
     type: "website",
     siteName: company.brand,

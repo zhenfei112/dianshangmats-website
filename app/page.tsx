@@ -23,11 +23,11 @@ export default function HomePage() {
           <div>
             <p className="text-xs font-black uppercase tracking-[0.22em] text-[#d7b07a]">B2B Custom Mat Manufacturer</p>
             <h1 className="mt-5 max-w-3xl text-5xl font-black tracking-tight md:text-6xl">
-              Custom mats made for brands, offices and hospitality buyers.
+              Custom Desk Mats and Mouse Pads for B2B Buyers
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">
-              {company.brand} builds mouse pads, desk mats, placemats, coasters, wrist rests and game mats with material,
-              logo and packaging customization.
+              {company.brand} supplies custom desk mats and mouse pads for brands, offices and wholesale buyers, with
+              material, logo and packaging options. We also offer placemats, coasters, wrist rests and game mats.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/products" className="btn-primary">

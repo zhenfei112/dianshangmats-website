@@ -51,6 +51,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
+        "@type": "Product",
+        name: product.name,
+        description: product.summary,
+        image: [product.image, ...product.gallery.filter((image) => image !== product.image)].map((image) => new URL(image, "https://dianshangmats.com").href),
+        sku: product.modelNumber
+      }).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: "https://dianshangmats.com/" },

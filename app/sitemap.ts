@@ -16,6 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...[...new Set(staticRoutes)].map((route) => ({ url: `${siteUrl}${route}` })),
     ...categories.map((category) => ({ url: `${siteUrl}/category/${category.slug}` })),
     ...products.filter((product) => product.status === "ACTIVE").map((product) => ({ url: `${siteUrl}/products/${product.slug}` })),
-    ...articles.map((article) => ({ url: `${siteUrl}/knowledge/${article.slug}` }))
+    ...articles.filter((article) => !article.needsReview).map((article) => ({ url: `${siteUrl}/knowledge/${article.slug}` }))
   ];
 }

@@ -59,8 +59,7 @@ export function InquiryForm({ compact = false }: { compact?: boolean }) {
         <p className="eyebrow">Factory Inquiry</p>
         <h2 className="text-2xl font-black text-navy-950">Send requirements to {company.brand}</h2>
         <p className="mt-2 text-sm leading-6 text-slate-600">
-          Share product, quantity, size, material, logo, packaging, and destination details. The local version stores
-          test submissions only after database setup.
+          Share product, quantity, size, material, logo, packaging, and destination details so our team can review your request.
         </p>
       </div>
 

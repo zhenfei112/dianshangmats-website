@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { articles } from "@/lib/site-data";
 
 export function generateStaticParams() {
@@ -11,7 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = articles.find((item) => item.slug === slug);
   return {
     title: article?.title || "Article",
-    description: article?.excerpt
+    description: article?.excerpt,
+    robots: article?.needsReview ? { index: false, follow: true } : undefined
   };
 }
 
@@ -28,10 +30,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <img className="mt-8 aspect-[16/9] rounded-3xl object-cover shadow-soft" src={article.image} alt={article.title} />
         <div className="rich-text mt-8 text-lg leading-8">
           <p>{article.body}</p>
-          <p>
-            This article is seeded as review content. The admin backend will support editing, SEO metadata and
-            publication status before launch.
-          </p>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <Link href="/products" className="btn-secondary">Browse Products</Link>
+          <Link href="/oem-odm-services" className="btn-secondary">OEM/ODM Services</Link>
+          <Link href="/request-quote" className="btn-primary">Request a Quote</Link>
         </div>
       </div>
     </article>
